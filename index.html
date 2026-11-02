@@ -3,7 +3,20 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Papatya Cakery</title>
+<title>Papatya Cakery | El Yapımı Butik Pastane</title>
+<meta name="description" content="El yapımı butik pastane. Karacabey'de taze pastalar, özel lezzetler ve unutulmaz tatlı anlar."/>
+<link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/barissgelmiss/PapatyaCakery/main/Logo.svg"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Papatya Cakery"/>
+<meta property="og:title" content="Papatya Cakery | El Yapımı Butik Pastane"/>
+<meta property="og:description" content="El yapımı butik pastane. Karacabey'de taze pastalar, özel lezzetler ve unutulmaz tatlı anlar."/>
+<meta property="og:image" content="https://raw.githubusercontent.com/barissgelmiss/PapatyaCakery/main/Logo.svg"/>
+<meta property="og:image:type" content="image/svg+xml"/>
+<meta property="og:locale" content="tr_TR"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Papatya Cakery | El Yapımı Butik Pastane"/>
+<meta name="twitter:description" content="El yapımı butik pastane. Karacabey'de taze pastalar, özel lezzetler ve unutulmaz tatlı anlar."/>
+<meta name="twitter:image" content="https://raw.githubusercontent.com/barissgelmiss/PapatyaCakery/main/Logo.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -463,6 +476,65 @@ body.dark .footer-logo-wrap{background:none !important;}
 #scrollTop svg{width:22px;height:22px}
 /* ── Hamburger menü kapatma iyileştirmesi ── */
 .menu-panel{touch-action:pan-y;}
+
+/* ── Nasıl Sipariş Verilir ── */
+.order-section{padding:60px 20px;max-width:1100px;margin:0 auto;text-align:center}
+.order-section h2,.faq-section h2{font-family:var(--serif);font-size:clamp(26px,4vw,40px);font-weight:600;color:var(--accent-d);margin-bottom:8px}
+.order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;text-align:left}
+.order-step{
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(242,160,123,.4);border-radius:18px;padding:28px 22px;
+  box-shadow:0 8px 30px rgba(181,23,74,.08);
+  opacity:0;transform:translateY(34px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.order-step.visible{opacity:1;transform:none}
+body.dark .order-step{background:rgba(58,29,51,.65);border-color:rgba(212,68,106,.3)}
+.order-num{
+  display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;
+  background:var(--accent);color:#fff;font-family:var(--serif);font-weight:600;font-size:17px;margin-bottom:12px;
+}
+.order-step h3{font-family:var(--serif);font-size:20px;color:var(--accent-d);margin-bottom:8px;font-weight:600}
+.order-step p{font-size:13.5px;color:var(--muted);line-height:1.7}
+@media(max-width:680px){ .order-grid{grid-template-columns:1fr;gap:14px} }
+
+/* ── SSS ── */
+.faq-section{padding:60px 20px 50px;max-width:820px;margin:0 auto;text-align:center}
+.faq-list{margin-top:30px;text-align:left;display:flex;flex-direction:column;gap:10px}
+.faq-item{
+  background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+}
+body.dark .faq-item{background:rgba(58,29,51,.6)}
+.faq-item summary{
+  list-style:none;cursor:pointer;padding:16px 20px;
+  font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:22px;color:var(--accent);line-height:1;transition:transform .3s;flex-shrink:0}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 20px 18px;font-size:14px;color:var(--muted);line-height:1.75}
+
+/* ── Menüde şef animasyonu (kod ile, şeffaf, sonsuz döngü) ── */
+.chef-wrap{width:150px;margin:18px auto 10px;display:block;}
+.chef-svg{width:100%;height:auto;display:block;color:#8A0F38;overflow:visible}
+body.dark .chef-svg{color:#F4EAE0}
+.chef-glow{animation:chefGlow 4.5s ease-in-out infinite}
+.chef-body{animation:chefBreathe 3.2s ease-in-out infinite}
+.chef-arm{animation:chefSway 3.2s ease-in-out infinite alternate}
+.chef-dollop{animation:chefDollop 6s ease-in-out infinite}
+.chef-flower{animation:chefBloom 6s ease-in-out infinite}
+@keyframes chefGlow{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes chefBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes chefSway{0%{transform:rotate(-4deg)}100%{transform:rotate(4deg)}}
+@keyframes chefDollop{0%,12%{transform:scale(0);opacity:0}30%,78%{transform:scale(1);opacity:1}92%,100%{transform:scale(0);opacity:0}}
+@keyframes chefBloom{0%,32%{transform:scale(0) rotate(-40deg);opacity:0}48%,84%{transform:scale(1) rotate(0);opacity:1}100%{transform:scale(0) rotate(0);opacity:0}}
+@media (prefers-reduced-motion: reduce){
+  .chef-glow,.chef-body,.chef-arm,.chef-dollop,.chef-flower{animation:none !important}
+  .chef-flower{opacity:1;transform:none}
+  .chef-dollop{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
@@ -503,6 +575,80 @@ body.dark .footer-logo-wrap{background:none !important;}
   <a href="https://www.instagram.com/papatya_cakery?psln=MjdrdGszNmZsbXZi" target="_blank" rel="noopener">Instagram</a>
   <a href="https://www.google.com/maps/dir/?api=1&destination=Esentepe+Mah.+180.+sk.+No:+5%2F13+Karacabey+BURSA" target="_blank" rel="noopener">Google Haritalar</a>
   <a href="#iletisim">İletişim</a>
+  <figure class="chef-wrap" aria-hidden="true">
+  <svg class="chef-svg" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="chefGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#F2A07B" stop-opacity=".38"/>
+        <stop offset="1" stop-color="#F2A07B" stop-opacity="0"/>
+      </radialGradient>
+      <pattern id="gingham" width="12" height="12" patternUnits="userSpaceOnUse">
+        <rect width="12" height="12" fill="#F2A07B"/>
+        <rect width="12" height="5" fill="#FBF0DC" opacity=".55"/>
+        <rect width="5" height="12" fill="#FBF0DC" opacity=".55"/>
+      </pattern>
+    </defs>
+
+    <circle class="chef-glow" cx="100" cy="104" r="96" fill="url(#chefGlow)"/>
+
+    <!-- Şef gövdesi (hafif nefes) -->
+    <g class="chef-body" style="transform-box:view-box;transform-origin:100px 180px">
+      <!-- topuz (arkada) -->
+      <circle cx="124" cy="38" r="12" fill="#E9C98B" stroke="currentColor" stroke-width="1.5"/>
+      <!-- gövde -->
+      <path d="M62 178 V122 Q62 96 100 94 Q138 96 138 122 V178 Z" fill="#fff" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <!-- önlük -->
+      <path d="M72 178 V126 Q100 118 128 126 V178 Z" fill="url(#gingham)" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M72 126 Q100 118 128 126" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <!-- boyun ve yüz -->
+      <rect x="93" y="80" width="14" height="16" rx="5" fill="#F6D5C0"/>
+      <circle cx="100" cy="64" r="23" fill="#F6D5C0" stroke="currentColor" stroke-width="1.6"/>
+      <!-- saç -->
+      <path d="M77 64 Q74 36 100 35 Q127 36 123 64 Q117 47 100 46 Q84 47 77 64 Z" fill="#E9C98B" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <!-- yüz -->
+      <circle cx="92" cy="68" r="1.9" fill="currentColor"/>
+      <circle cx="108" cy="68" r="1.9" fill="currentColor"/>
+      <circle cx="87" cy="76" r="3" fill="#F2A07B" opacity=".45"/>
+      <circle cx="113" cy="76" r="3" fill="#F2A07B" opacity=".45"/>
+      <path d="M94 76 Q100 81 106 76" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- sol kol (dinlenirken) -->
+      <path d="M72 124 Q60 150 70 170" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+      <path d="M72 124 Q60 150 70 170" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+      <circle cx="70" cy="172" r="5" fill="#F6D5C0" stroke="currentColor" stroke-width="1.2"/>
+    </g>
+
+    <!-- Tezgah -->
+    <path d="M18 176 H182 V188 Q182 198 172 198 H28 Q18 198 18 188 Z" fill="#FBF0DC" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M30 184 H170" stroke="currentColor" stroke-width="1" opacity=".35" stroke-linecap="round"/>
+
+    <!-- Pasta standı ve pasta -->
+    <ellipse cx="100" cy="174" rx="50" ry="5" fill="#fff" stroke="currentColor" stroke-width="1.4"/>
+    <rect x="62" y="140" width="76" height="34" rx="6" fill="#FBF0DC" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M62 146 q6 9 12 0 q6 9 12 0 q6 9 12 0 q6 9 12 0 q6 9 12 0 q6 9 12 0 V140 H62 Z" fill="#fff" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+    <rect x="72" y="118" width="56" height="24" rx="6" fill="#F2A07B" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M72 124 q5 8 10 0 q5 8 10 0 q5 8 10 0 q5 8 10 0 q5 8 10 0 V118 H72 Z" fill="#fff" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+
+    <!-- Papatya motifi (ara ara belirir) -->
+    <g class="chef-flower" style="transform-origin:100px 128px;transform-box:view-box">
+      <g fill="#fff" stroke="#B5174A" stroke-width="1">
+        <circle cx="100" cy="122" r="3.6"/><circle cx="105.4" cy="125" r="3.6"/>
+        <circle cx="103.6" cy="131.4" r="3.6"/><circle cx="96.4" cy="131.4" r="3.6"/>
+        <circle cx="94.6" cy="125" r="3.6"/>
+      </g>
+      <circle cx="100" cy="127" r="2.2" fill="#B5174A"/>
+    </g>
+
+    <!-- Sağ kol + krema torbası (süsleme hareketi) -->
+    <g class="chef-arm" style="transform-origin:128px 124px;transform-box:view-box">
+      <path d="M128 124 Q142 140 118 150" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+      <path d="M128 124 Q142 140 118 150" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+      <circle cx="118" cy="151" r="5" fill="#F6D5C0" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M111 146 L125 146 L117 168 Z" fill="#fff" stroke="#B5174A" stroke-width="1.4" stroke-linejoin="round"/>
+      <path d="M113 148 L123 148" stroke="#B5174A" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+      <circle class="chef-dollop" cx="117" cy="162" r="3.2" fill="#fff" stroke="#B5174A" stroke-width="1" style="transform-origin:117px 162px;transform-box:view-box"/>
+    </g>
+  </svg>
+</figure>
   <div class="menu-foot">Papatya Cakery<br>Butik Kafe &amp; Pasta İmalathanesi</div>
 </nav>
 
@@ -584,6 +730,30 @@ body.dark .footer-logo-wrap{background:none !important;}
     <p>En iyi malzemelerin usta ellerde birer sanat eserine dönüştüğü o ilk günkü heyecanla Karacabey'de yola çıktık. Papatya Cakery olarak bizim için pastacılık sadece bir meslek değil; tat, doku ve estetiğin kusursuz bir uyum içinde birleştiği bir gastronomi sanatı. Amacımız yalnızca tatlı yapmak değil, misafirlerimizin damaklarında unutulmaz izler bırakan özel anılar yaratmak. Yılların getirdiği ustalığı modern lezzet trendleriyle harmanlıyor, her bir reçetemizde mükemmelliği arıyoruz. Kullandığımız birinci sınıf çikolatalardan taptaze meyvelere kadar her detayda tavizsiz bir kalite anlayışını benimsiyoruz. Geleneksel lezzet mirasına duyduğumuz saygıyı, yenilikçi vizyonumuzla birleştiriyoruz. Vitrinimizi süsleyen her lezzet, mesleğimize duyduğumuz saygının ve zarafete olan bağlılığımızın bir yansıması. Sizi, Papatya Cakery'nin özenle hazırladığı bu eşsiz tatları deneyimlemeye ve Karacabey'den doğan bu lezzet hikayesinin bir parçası olmaya davet ediyoruz.</p>
   </section>
 
+
+  <!-- ── NASIL SİPARİŞ VERİLİR ── -->
+  <section class="order-section" id="siparis">
+    <h2>Nasıl Sipariş Verilir?</h2>
+    <div class="divider"></div>
+    <div class="order-grid">
+      <div class="order-step">
+        <span class="order-num">1</span>
+        <h3>Lezzetinizi Seçin 🍰</h3>
+        <p>Menümüzdeki imza tatları inceleyin veya hayalinizdeki o özel tasarımı belirleyin.</p>
+      </div>
+      <div class="order-step">
+        <span class="order-num">2</span>
+        <h3>Detayları Paylaşın 📱</h3>
+        <p>WhatsApp hattımızdan bize ulaşarak teslim tarihi, kişi sayısı ve konsept gibi detayları netleştirin.</p>
+      </div>
+      <div class="order-step">
+        <span class="order-num">3</span>
+        <h3>Taptaze Teslim Alın 🎁</h3>
+        <p>Sadece size özel, birinci sınıf malzemelerle sevgiyle hazırlanan pastanızı atölyemizden ya da kapınızdan teslim alın.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ── BİZİ ZİYARET EDİN ── -->
   <section class="section" id="ziyaret">
     <h2>Bizi Ziyaret Edin</h2>
@@ -616,6 +786,43 @@ body.dark .footer-logo-wrap{background:none !important;}
       </button>
     </div>
     <p id="geoResult" style="margin-top:14px;font-weight:600;color:var(--accent);min-height:22px;"></p>
+  </section>
+
+
+  <!-- ── SSS ── -->
+  <section class="faq-section" id="sss">
+    <h2>Sıkça Sorulan Sorular</h2>
+    <div class="divider"></div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Özel gün (doğum günü, nişan, söz) pastaları için ne kadar süre önceden sipariş vermeliyim?</summary>
+        <p>Her detayıyla içinize sinen kusursuz bir tasarım ortaya çıkarabilmemiz için siparişlerinizi en az 48 saat önceden oluşturmanızı rica ediyoruz.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Kafe ve restoranlar için toptan tatlı/pasta satışınız bulunuyor mu?</summary>
+        <p>Evet, işletmelere özel taze ve günlük toptan tatlı tedarikimiz bulunmaktadır. Detaylı menü ve fiyatlandırma için WhatsApp hattımızdan bizimle iletişime geçebilirsiniz.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Siparişleri adrese teslim ediyor musunuz, yoksa mağazadan gel-al (paket) olarak mı çalışıyorsunuz?</summary>
+        <p>Evet, adrese teslimat hizmetimiz bulunmaktadır. Dilerseniz siparişlerinizi belirlediğimiz gün ve saatte mağazamızdan gel-al seçeneğiyle doğrudan teslim de alabilirsiniz.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Glutensiz, vegan veya şekersiz ürün seçenekleriniz mevcut mu?</summary>
+        <p>Tüm ürünlerimiz kalite standartlarımızı korumak adına klasik artisan reçetelerimizle hazırlanmaktadır. Şu an için menümüzde glutensiz, vegan veya şekersiz özel seçeneklerimiz bulunmamaktadır.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Kendi istediğim özel bir tasarımı veya referans görseli pastaya uygulatabilir miyim?</summary>
+        <p>Evet, hayalinizdeki tasarımı veya elinizdeki referans görselleri bizimle paylaşabilirsiniz. İstediğiniz konsepti Papatya Cakery zarafetiyle pastanıza en şık şekilde yansıtıyoruz.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Toptan siparişlerde minimum sipariş tutarı veya adedi nedir?</summary>
+        <p>Toptan veya kurumsal siparişlerinizde herhangi bir minimum adet veya tutar alt sınırımız bulunmamaktadır. Tamamen işletmenizin ihtiyacına uygun esneklikte sipariş oluşturabilirsiniz.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Pastalarınızı teslim aldıktan sonra nasıl muhafaza etmeliyim ve raf ömrü ne kadardır?</summary>
+        <p>Ürünlerimiz taze malzemelerle ve hiçbir koruyucu katkı maddesi kullanılmadan üretildiği için, teslim aldıktan sonra mutlaka +4 derece buzdolabında muhafaza edilmelidir. En ideal lezzet ve doku deneyimi için pastalarımızın raf ömrü 3 gündür.</p>
+      </details>
+    </div>
   </section>
 
   <footer id="iletisim">
@@ -1268,6 +1475,18 @@ function showDistance(){
 }
 </script>
 
+<script>
+/* Sipariş adımları: aşağıdan yukarı sırayla belirsin */
+(function(){
+  var steps=document.querySelectorAll('.order-step');
+  steps.forEach(function(el,i){ el.style.transitionDelay=(i*0.18)+'s'; });
+  if(!('IntersectionObserver' in window)){ steps.forEach(function(el){el.classList.add('visible');}); return; }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  },{threshold:0.2});
+  steps.forEach(function(el){ io.observe(el); });
+})();
+</script>
 <!-- SCROLL TO TOP -->
 <button id="scrollTop" aria-label="Yukarı çık" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg></button>
 
