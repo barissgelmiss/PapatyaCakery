@@ -84,7 +84,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .menu-panel a{font-family:var(--serif);font-size:24px;font-weight:500;padding:12px 0;border-bottom:1px solid var(--line);transition:color .2s;color:var(--ink)}
 .menu-panel a:hover{color:var(--accent)}
 .menu-foot{margin-top:auto;font-size:11px;color:var(--muted);letter-spacing:1px;line-height:1.8}
-.menu-logo{width:58px;margin-bottom:20px}
+.menu-logo{width:120px;height:auto;margin-bottom:20px}
 
 /* VİTRİN STAGE */
 .stage{position:relative;height:350vh;background:var(--white)}
@@ -431,6 +431,17 @@ footer{position:relative;padding-top:78px;}
   display:flex;align-items:center;justify-content:center;z-index:2;
 }
 .footer-logo{width:70px;height:auto;opacity:1;filter:none;}
+
+/* ── Logo son ayar: büyük, arka plansız, gece modunda beyaz ── */
+.menu-logo{width:120px;height:auto}
+.brand-logo,.menu-logo,.footer-logo{background:none;padding:0;border-radius:0;box-shadow:none;border:none}
+body.dark .brand-logo,body.dark .menu-logo,body.dark .footer-logo{filter:brightness(0) invert(1);}
+footer{padding-top:96px !important;}
+.footer-logo-wrap{
+  position:absolute;top:0;left:50%;transform:translate(-50%,-50%);margin:0;
+  width:auto;height:auto;display:block;z-index:2;
+}
+.footer-logo{width:130px;height:auto;opacity:1;}
 </style>
 </head>
 <body>
@@ -487,12 +498,7 @@ footer{position:relative;padding-top:78px;}
         <div class="arrow">↓</div>
       </div>
 
-      <div class="cards-overlay" id="cardsOverlay">
-        <div class="cards-glass">
-          <div class="cards-glass-title">Tatlı Vitrinimiz</div>
-          <div class="cards-grid" id="cardsGrid"></div>
-        </div>
-      </div>
+      
     </div>
   </section>
 
@@ -650,18 +656,6 @@ const products = [
   {name:'Vanilyalı Profiterol', price:'₺150',kcal:'340 kcal',allergen:'Süt, Yumurta, Gluten',img:null}
 ];
 
-/* ---- Kartları DOM'a yaz ---- */
-document.getElementById('cardsGrid').innerHTML = products.map(p=>`
-  <article class="card">
-    ${p.img?`<img src="${p.img}" alt="${p.name}">`:'<div class="img"></div>'}
-    <h3>${p.name}</h3>
-    <div class="price">${p.price}</div>
-    <div class="meta"><b>Kalori:</b> ${p.kcal}</div>
-    <div class="meta"><b>Alerjen:</b><br>
-      ${p.allergen.split(',').map(a=>`<span class="tag">${a.trim()}</span>`).join('')}
-    </div>
-  </article>`).join('');
-
 /* ---- INIT ---- */
 function init(){
   const canvas    = document.getElementById('cabinet-canvas');
@@ -683,7 +677,7 @@ function init(){
   renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
 
   setupLights();
   buildCabinet();
@@ -702,11 +696,13 @@ function setupLights(){
   const dir = new THREE.DirectionalLight(0xfff5ee, 0.55);
   dir.position.set(3, 5, 4);
   dir.castShadow = true;
-  dir.shadow.mapSize.set(1024,1024);
+  dir.shadow.mapSize.set(2048,2048);
+  dir.shadow.radius = 6;
+  dir.shadow.bias = -0.0008;
   scene.add(dir);
 
   /* İç ışık */
-  const inner = new THREE.PointLight(0xffefd5, 0.75, 3);
+  const inner = new THREE.PointLight(0xffffff, 0.6, 3);
   inner.position.set(0, BASE_H + GLASS_H - 0.1, 0);
   scene.add(inner);
 
@@ -730,14 +726,9 @@ function setupLights(){
     bulb.position.set(xPos, lampY-.08, 0);
     lampGrp.add(bulb);
 
-    const spot = new THREE.SpotLight(0xffcc44, 2.8);
-    spot.position.set(xPos, lampY-.1, 0);
-    spot.target.position.set(xPos, BASE_H, 0);
-    spot.angle = Math.PI/5;
-    spot.penumbra = .6;
-    spot.castShadow = true;
+    const spot = new THREE.PointLight(0xffffff, 0.8, 2.5, 2);
+    spot.position.set(xPos, lampY-.12, 0);
     scene.add(spot);
-    scene.add(spot.target);
   });
   scene.add(lampGrp);
 }
@@ -1010,13 +1001,13 @@ function onScroll(){
   const canvasEl = document.getElementById('cabinet-canvas');
   if(canvasEl) canvasEl.style.opacity = String(1 - smoothstep(.75,.90,p));
 
-  /* Kart overlay: 0.82→1.0 */
-  const overlayEl = document.getElementById('cardsOverlay');
-  if(overlayEl){
-    const op = smoothstep(.82,1.0,p);
-    overlayEl.style.opacity = op;
-    overlayEl.style.pointerEvents = op>.5?'auto':'none';
+  /* Vitrin bitince araya kart girmeden doğrudan menüye kaydır */
+  if(p>=0.92 && !window._menuNav){
+    window._menuNav=true;
+    const menuSec=document.getElementById('menu-bolumu');
+    if(menuSec) menuSec.scrollIntoView({behavior:'smooth',block:'start'});
   }
+  if(p<0.5) window._menuNav=false;
 
   document.getElementById('topbar').classList.toggle('scrolled', window.scrollY>10);
 }
@@ -1182,14 +1173,21 @@ function closeCookieModal(){
 
 /* ── Konum / mesafe / süre ── */
 var SHOP_ADDRESS='Esentepe Mah. 180. sk. No: 5/13 Karacabey / BURSA';
-var shopCoords=null;
+var SHOP_OVERRIDE=null; // Kesin konum biliniyorsa buraya yazın: {lat:..., lng:...}
+var shopCoords=SHOP_OVERRIDE;
+function geoSearch(q){
+  return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=tr&q='+encodeURIComponent(q))
+    .then(function(r){return r.json();})
+    .then(function(d){ return (d&&d.length)?{lat:parseFloat(d[0].lat),lng:parseFloat(d[0].lon)}:null; });
+}
 function geocodeShop(){
   if(shopCoords) return Promise.resolve(shopCoords);
-  var url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(SHOP_ADDRESS);
-  return fetch(url,{headers:{'Accept-Language':'tr'}}).then(function(r){return r.json();}).then(function(d){
-    if(!d||!d.length) throw new Error('adres');
-    shopCoords={lat:parseFloat(d[0].lat),lng:parseFloat(d[0].lon)};
-    return shopCoords;
+  var queries=['Esentepe Mah. 180. sk. No: 5/13 Karacabey Bursa','Esentepe Mahallesi Karacabey Bursa','Karacabey Bursa Türkiye'];
+  return queries.reduce(function(acc,q){
+    return acc.then(function(found){ return found || geoSearch(q).catch(function(){return null;}); });
+  },Promise.resolve(null)).then(function(found){
+    if(!found) throw new Error('adres');
+    shopCoords=found; return found;
   });
 }
 function haversineKm(a,b){
