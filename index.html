@@ -442,6 +442,13 @@ footer{padding-top:96px !important;}
   width:auto;height:auto;display:block;z-index:2;
 }
 .footer-logo{width:130px;height:auto;opacity:1;}
+
+/* ── Son ayar: logo olduğu gibi, arka plan ve filtre yok (gece/gündüz) ── */
+.footer-logo-wrap{background:none !important;border:0 !important;box-shadow:none !important;border-radius:0 !important;width:auto !important;height:auto !important;}
+.footer-logo{width:130px !important;height:auto !important;opacity:1 !important;}
+.brand-logo,.menu-logo,.footer-logo,.splash-logo{filter:none !important;background:none !important;padding:0 !important;border-radius:0 !important;box-shadow:none !important;}
+body.dark .brand-logo,body.dark .menu-logo,body.dark .footer-logo,body.dark .splash-logo{filter:none !important;}
+body.dark .footer-logo-wrap{background:none !important;}
 </style>
 </head>
 <body>
