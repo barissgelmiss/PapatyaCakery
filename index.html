@@ -417,6 +417,20 @@ body.dark .footer-logo{
   .visit-grid{grid-template-columns:1fr;}
   .visit-actions{flex-direction:column;align-items:center;}
 }
+
+/* ── Logo: gece modu görünürlüğü (açık zemin rozeti) ── */
+body.dark .splash-logo,body.dark .brand-logo,body.dark .menu-logo,body.dark .footer-logo{filter:none;}
+body.dark .brand-logo,body.dark .menu-logo{background:var(--cream);border-radius:12px;padding:6px;box-sizing:content-box;}
+
+/* ── Footer mühür logosu: footer çizgisinin tam ortasında ── */
+footer{position:relative;padding-top:78px;}
+.footer-logo-wrap{
+  position:absolute;top:0;left:50%;transform:translate(-50%,-50%);margin:0;
+  width:104px;height:104px;border-radius:50%;background:var(--cream);
+  border:3px solid var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.28);
+  display:flex;align-items:center;justify-content:center;z-index:2;
+}
+.footer-logo{width:70px;height:auto;opacity:1;filter:none;}
 </style>
 </head>
 <body>
@@ -452,10 +466,10 @@ body.dark .footer-logo{
       <span>🌙</span>
     </div>
   </div>
-  <a href="#">Menü</a>
+  <a href="https://winniey.com/menu/papatyacakery?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVV885leHRuA2FlbQIxMQBwZG9mAmZkaWQWURfgWdsb5TVcCNvicQkhHVPABD-8jnNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp5ocvI8Kz_MfevHgQwLFYYpN1GcC50kWGYzExsXB7TlAKAjStnKi3ZaylcXG_aem_X0Miz8vC6icx73I6-V1ZUA" target="_blank" rel="noopener">Menü</a>
   <a href="#hikayemiz">Hikayemiz</a>
   <a href="https://www.instagram.com/papatya_cakery?psln=MjdrdGszNmZsbXZi" target="_blank" rel="noopener">Instagram</a>
-  <a href="https://maps.google.com/?q=Papatya+Cakery" target="_blank" rel="noopener">Google Haritalar</a>
+  <a href="https://www.google.com/maps/dir/?api=1&destination=Esentepe+Mah.+180.+sk.+No:+5%2F13+Karacabey+BURSA" target="_blank" rel="noopener">Google Haritalar</a>
   <a href="#iletisim">İletişim</a>
   <div class="menu-foot">Papatya Cakery<br>Butik Kafe &amp; Pasta İmalathanesi</div>
 </nav>
@@ -490,7 +504,7 @@ body.dark .footer-logo{
     <div class="menu-cards-grid" id="menuCardsGrid">
       <!-- JS ile doldurulacak -->
     </div>
-    <a class="tum-menu-btn" href="#">Tüm Menüyü Gör</a>
+    <a class="tum-menu-btn" href="https://winniey.com/menu/papatyacakery?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVV885leHRuA2FlbQIxMQBwZG9mAmZkaWQWURfgWdsb5TVcCNvicQkhHVPABD-8jnNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp5ocvI8Kz_MfevHgQwLFYYpN1GcC50kWGYzExsXB7TlAKAjStnKi3ZaylcXG_aem_X0Miz8vC6icx73I6-V1ZUA" target="_blank" rel="noopener">Tüm Menüyü Gör</a>
     <a class="wa-btn" href="https://wa.me/905418160792?text=Merhaba%2C%20sipari%C5%9F%20vermek%20istiyorum." target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -551,7 +565,7 @@ body.dark .footer-logo{
       <div class="visit-card">
         <div class="visit-icon">🕐</div>
         <h3>Çalışma Saatlerimiz</h3>
-        <p>Pazartesi – Cuma: 09:00 – 20:00<br>Cumartesi – Pazar: 10:00 – 21:00</p>
+        <p>Hafta içi: 10:00 – 00:00<br>Hafta sonu: 10:00 – 00:00</p>
       </div>
       <div class="visit-card">
         <div class="visit-icon">📍</div>
@@ -582,7 +596,7 @@ body.dark .footer-logo{
       <img class="footer-logo" src="https://raw.githubusercontent.com/barissgelmiss/PapatyaCakery/main/Logo.svg" alt="Papatya Cakery"/>
     </div>
     <div class="footer-links">
-      <a href="#">Menü</a>
+      <a href="https://winniey.com/menu/papatyacakery?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAVV885leHRuA2FlbQIxMQBwZG9mAmZkaWQWURfgWdsb5TVcCNvicQkhHVPABD-8jnNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp5ocvI8Kz_MfevHgQwLFYYpN1GcC50kWGYzExsXB7TlAKAjStnKi3ZaylcXG_aem_X0Miz8vC6icx73I6-V1ZUA" target="_blank" rel="noopener">Menü</a>
       <a href="#hikayemiz">Hikayemiz</a>
       <a href="#iletisim">İletişim</a>
       <a href="https://www.instagram.com/papatya_cakery?psln=MjdrdGszNmZsbXZi" target="_blank" rel="noopener">Instagram</a>
@@ -1165,6 +1179,53 @@ function closeCookieModal(){
   });
 })();
 
+
+/* ── Konum / mesafe / süre ── */
+var SHOP_ADDRESS='Esentepe Mah. 180. sk. No: 5/13 Karacabey / BURSA';
+var shopCoords=null;
+function geocodeShop(){
+  if(shopCoords) return Promise.resolve(shopCoords);
+  var url='https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(SHOP_ADDRESS);
+  return fetch(url,{headers:{'Accept-Language':'tr'}}).then(function(r){return r.json();}).then(function(d){
+    if(!d||!d.length) throw new Error('adres');
+    shopCoords={lat:parseFloat(d[0].lat),lng:parseFloat(d[0].lon)};
+    return shopCoords;
+  });
+}
+function haversineKm(a,b){
+  var R=6371, toR=Math.PI/180;
+  var dLat=(b.lat-a.lat)*toR, dLng=(b.lng-a.lng)*toR;
+  var h=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(a.lat*toR)*Math.cos(b.lat*toR)*Math.sin(dLng/2)*Math.sin(dLng/2);
+  return 2*R*Math.atan2(Math.sqrt(h),Math.sqrt(1-h));
+}
+function fmtKm(km){ return km<1 ? Math.round(km*1000)+' m' : km.toFixed(1)+' km'; }
+function fmtMin(sec){ var m=Math.max(1,Math.round(sec/60)); return m>=60 ? Math.floor(m/60)+' sa '+(m%60)+' dk' : m+' dk'; }
+function showDistance(){
+  var res=document.getElementById('geoResult');
+  var txt=document.getElementById('geoBtnText');
+  if(!navigator.geolocation){res.textContent='Cihazınız konum desteklemiyor.';return;}
+  txt.textContent='Konum alınıyor...';
+  res.textContent='';
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var me={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    geocodeShop().then(function(shop){
+      var route='https://router.project-osrm.org/route/v1/driving/'+me.lng+','+me.lat+';'+shop.lng+','+shop.lat+'?overview=false';
+      return fetch(route).then(function(r){return r.json();}).then(function(d){
+        if(d.code!=='Ok'||!d.routes||!d.routes.length) throw new Error('rota');
+        var rt=d.routes[0];
+        res.textContent='Dükkana araçla yaklaşık '+fmtMin(rt.duration)+' ('+fmtKm(rt.distance/1000)+')';
+      }).catch(function(){
+        var km=haversineKm(me,shop);
+        res.textContent='Kuş uçuşu '+fmtKm(km)+' · araçla yaklaşık '+fmtMin(km/30*3600)+' (tahmini)';
+      });
+    }).catch(function(){
+      res.textContent='Dükkan konumu bulunamadı, lütfen Yol Tarifi Al butonunu kullanın.';
+    }).then(function(){ txt.textContent='Bana Uzaklığımı Göster'; });
+  },function(){
+    res.textContent='Konum izni verilmedi veya alınamadı.';
+    txt.textContent='Bana Uzaklığımı Göster';
+  },{enableHighAccuracy:true,timeout:10000});
+}
 </script>
 
 <!-- SCROLL TO TOP -->
