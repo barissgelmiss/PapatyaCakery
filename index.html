@@ -17,6 +17,7 @@
 <meta name="twitter:title" content="Papatya Cakery | El Yapımı Butik Pastane"/>
 <meta name="twitter:description" content="El yapımı butik pastane. Karacabey'de taze pastalar, özel lezzetler ve unutulmaz tatlı anlar."/>
 <meta name="twitter:image" content="https://raw.githubusercontent.com/barissgelmiss/PapatyaCakery/main/Logo.svg"/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -595,6 +596,34 @@ body.dark .sticky{background:linear-gradient(180deg,#5A304E 0%,#3A1D33 45%,#2B15
 
 /* ── Gece modu karakter: filtre kaldırıldı (orijinal renkler) ── */
 body.dark .chef-svg{filter:none}
+
+/* ── Rozet: vitrinin alt ortasında, sabit (ön planda) ── */
+.sticky > .spin-badge{bottom:4vh}
+@media (max-width:680px){ .sticky > .spin-badge{bottom:6vh} }
+
+/* ── Başlık: biraz aşağıda, beyaz "aşağı kaydır" yazısı ── */
+@media (min-width:681px){ .intro{top:72px} }
+.intro p{color:#fff !important;text-shadow:0 1px 10px rgba(181,23,74,.45)}
+
+/* ── Masaüstü üst bar: logo ve yazı büyük ── */
+@media (min-width:681px){
+  .topbar{padding:12px 36px}
+  .brand-logo{width:64px;height:64px}
+  .brand-text{font-size:28px}
+  .brand-text small{font-size:11px;letter-spacing:6px}
+}
+
+/* ── Gece modu karakter: patlamayı önle (parıltı kapalı, beyazlar koyu) ── */
+body.dark .chef-glow{display:none}
+body.dark .chef-svg{opacity:.88}
+body.dark .chef-svg [fill="#fff"],body.dark .chef-svg [fill="#FFFFFF"]{fill:#6B3D60}
+body.dark .chef-svg [fill="#FBF0DC"]{fill:#7B4B6F}
+body.dark .chef-svg [fill="#F6D5C0"]{fill:#B9826E}
+body.dark .chef-svg [stroke="#fff"]{stroke:#6B3D60}
+
+/* ── Rozet: dolabın ön alt kenarında, sabit (konumu JS ile hesaplanır) ── */
+.sticky > .spin-badge{z-index:20;isolation:isolate}
+#cabinet-canvas{z-index:1}
 </style>
 </head>
 <body>
@@ -983,7 +1012,7 @@ function init(){
   renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
   renderer.setClearColor(0x000000, 0);
   renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth<=680 ? 1.25 : 1.5));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -1005,7 +1034,7 @@ function setupLights(){
   const dir = new THREE.DirectionalLight(0xffffff, 0.55);
   dir.position.set(3, 5, 4);
   dir.castShadow = true;
-  dir.shadow.mapSize.set(2048,2048);
+  dir.shadow.mapSize.set(1024,1024);
   dir.shadow.radius = 6;
   dir.shadow.bias = -0.0008;
   scene.add(dir);
@@ -1314,8 +1343,9 @@ function onScroll(){
   if(window._lastP===undefined) window._lastP=p;
   if(p!==window._lastP){ window._scrollingUp = p<window._lastP; window._lastP=p; }
   if(canvasEl) canvasEl.style.opacity = String((p>=0.9 && window._scrollingUp) ? 1 : 1 - smoothstep(.75,.90,p));
+  /* Rozet: dolabın önünde görünür, kamera arkaya geçince gizlenir */
   const badgeEl=document.getElementById('spinBadge');
-  if(badgeEl) badgeEl.style.opacity = String((p>=0.9 && window._scrollingUp) ? 1 : 1 - smoothstep(.70,.85,p));
+  if(badgeEl) badgeEl.style.opacity = String(1 - smoothstep(.25,.40,p));
 
   /* Vitrin bitince araya kart girmeden doğrudan menüye kaydır */
   if(p>=0.92 && !window._menuNav){
@@ -1329,8 +1359,10 @@ function onScroll(){
 }
 
 /* ---- ANİMASYON DÖNGÜSÜ ---- */
+let stageVisible=true;
 function animate(){
   requestAnimationFrame(animate);
+  if(!stageVisible) return;
 
   /* Smooth interpolation */
   curCamX  += (targetCamX - curCamX)  * .065;
@@ -1349,6 +1381,24 @@ function animate(){
   renderer.render(scene, camera);
 }
 
+/* ---- ROZET KONUMU: dolabın ön alt kenarının ekrandaki yeri (başlangıç kamerasına göre, sabit) ---- */
+function placeBadge(){
+  const b=document.getElementById('spinBadge');
+  const st=document.getElementById('stickyDiv');
+  if(!b||!st||!camera) return;
+  const tmp=camera.clone();
+  tmp.position.set(0, 1.55, 3.6);
+  tmp.lookAt(0, camLookY(), 0);
+  tmp.updateMatrixWorld(true);
+  const v=new THREE.Vector3(0, 0, CAB_D/2).project(tmp);
+  const x=(v.x*0.5+0.5)*st.clientWidth;
+  const y=(-v.y*0.5+0.5)*st.clientHeight;
+  b.style.left=Math.round(x)+'px';
+  b.style.top=Math.round(y+22)+'px';
+  b.style.bottom='auto';
+  b.style.transform='translateX(-50%)';
+}
+
 /* ---- RESIZE ---- */
 function onResize(){
   const c = document.getElementById('stickyDiv');
@@ -1358,6 +1408,7 @@ function onResize(){
   camera.fov = camera.aspect >= 1 ? 36 : Math.min(68, Math.max(45, hHalf * 2));
   camera.updateProjectionMatrix();
   renderer.setSize(c.clientWidth, c.clientHeight);
+  placeBadge();
 }
 
 /* ---- HAMBURGER MENÜ ---- */
@@ -1583,6 +1634,14 @@ function showDistance(){
     el.addEventListener('touchcancel',off,{passive:true});
   });
   document.addEventListener('touchstart',function(){},{passive:true});
+})();
+</script>
+<script>
+/* Vitrin ekranı görünmüyorsa 3D render'ı durdur (performans) */
+(function(){
+  var st=document.getElementById('vitrin'); if(!st||!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(e){ stageVisible=e[0].isIntersecting; },{threshold:0});
+  io.observe(st);
 })();
 </script>
 <!-- SCROLL TO TOP -->
