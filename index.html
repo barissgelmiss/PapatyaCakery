@@ -602,8 +602,8 @@ body.dark .chef-svg{filter:none}
 @media (max-width:680px){ .sticky > .spin-badge{bottom:6vh} }
 
 /* ── Başlık: biraz aşağıda, beyaz "aşağı kaydır" yazısı ── */
-@media (min-width:681px){ .intro{top:72px} }
-.intro p{color:#fff !important;text-shadow:0 1px 10px rgba(181,23,74,.45)}
+@media (min-width:681px){ .intro{top:130px} }
+.intro p{color:#fff !important;font-weight:500;text-shadow:0 1px 10px rgba(181,23,74,.5)}
 
 /* ── Masaüstü üst bar: logo ve yazı büyük ── */
 @media (min-width:681px){
@@ -1390,13 +1390,13 @@ function placeBadge(){
   tmp.position.set(0, 1.55, 3.6);
   tmp.lookAt(0, camLookY(), 0);
   tmp.updateMatrixWorld(true);
-  const v=new THREE.Vector3(0, 0, CAB_D/2).project(tmp);
+  const v=new THREE.Vector3(0, BASE_H*0.5, CAB_D/2).project(tmp);
   const x=(v.x*0.5+0.5)*st.clientWidth;
   const y=(-v.y*0.5+0.5)*st.clientHeight;
   b.style.left=Math.round(x)+'px';
-  b.style.top=Math.round(y+22)+'px';
+  b.style.top=Math.round(y)+'px';
   b.style.bottom='auto';
-  b.style.transform='translateX(-50%)';
+  b.style.transform='translate(-50%,-50%)';
 }
 
 /* ---- RESIZE ---- */
