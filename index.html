@@ -544,6 +544,72 @@ body.dark .chef-svg{color:#F4EAE0}
 /* ── Gece modunda parlama ve beyazlık yumuşatıldı ── */
 body.dark .chef-glow{animation:none;opacity:.2}
 body.dark .chef-svg{filter:brightness(.78)}
+
+/* ── Dönen butik rozeti (vitrin ekranı, sağ üst) ── */
+.spin-badge{
+  position:absolute;top:96px;right:18px;z-index:6;width:104px;height:104px;
+  border-radius:50%;background:rgba(255,255,255,.82);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(242,160,123,.55);
+  box-shadow:0 8px 26px rgba(181,23,74,.14);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent-d);pointer-events:none;transition:opacity .3s;
+}
+body.dark .spin-badge{background:rgba(43,21,39,.8);color:var(--accent-d)}
+.spin-ring{position:absolute;inset:0;width:100%;height:100%;animation:spinBadge 26s linear infinite}
+.spin-center{width:34px;height:34px}
+@keyframes spinBadge{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media (max-width:680px){ .spin-badge{top:84px;right:12px;width:84px;height:84px} .spin-center{width:26px;height:26px} }
+@media (prefers-reduced-motion: reduce){ .spin-ring{animation:none} }
+
+/* ── E-posta (footer) ── */
+.footer-mail{margin:0 0 16px;font-size:13px;letter-spacing:.5px}
+.footer-mail a{color:rgba(255,255,255,.88);border-bottom:1px solid var(--peach);padding-bottom:1px}
+
+/* ── Özel imleç (sadece fare) ── */
+.cur{
+  position:fixed;left:0;top:0;z-index:300;pointer-events:none;
+  width:10px;height:10px;border-radius:50%;
+  background:#FBF0DC;box-shadow:0 0 0 1px rgba(59,37,53,.35);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1),background .3s,box-shadow .3s,opacity .3s;
+}
+.cur.vis{opacity:1}
+.cur span{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--accent-d);opacity:0;transition:opacity .25s;white-space:nowrap}
+.cur.big{width:84px;height:84px;background:rgba(251,240,220,.94);box-shadow:0 10px 30px rgba(59,37,53,.2)}
+.cur.big span{opacity:1}
+body.dark .cur{background:#F4EAE0;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+body.dark .cur.big{background:rgba(58,29,51,.94)}
+body.dark .cur.big span{color:#FF7FAA}
+@media (hover:hover) and (pointer:fine){
+  html.has-cursor, html.has-cursor *{cursor:none !important}
+}
+@media (hover:none), (pointer:coarse){ .cur{display:none} }
+.mag{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .2s,background .2s}
+
+/* ── Canlı fırın şeridi ── */
+.live-bar{
+  position:fixed;bottom:24px;right:84px;z-index:49;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(242,160,123,.5);border-radius:40px;padding:9px 16px 9px 12px;
+  box-shadow:0 6px 22px rgba(181,23,74,.14);
+  font-size:12px;color:var(--ink);max-width:min(70vw,340px);
+  opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;
+  pointer-events:none;
+}
+.live-bar.show{opacity:1;transform:none}
+body.dark .live-bar{background:rgba(43,21,39,.92)}
+.live-dot{width:9px;height:9px;border-radius:50%;background:#25D366;flex-shrink:0;position:relative}
+.live-dot::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid #25D366;
+  animation:livePulse 1.8s ease-out infinite;
+}
+@keyframes livePulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.live-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-text b{color:var(--accent);font-weight:600}
+@media (max-width:680px){ .live-bar{bottom:84px;right:12px;font-size:11px} }
+@media (prefers-reduced-motion: reduce){ .live-dot::after{animation:none} }
 </style>
 </head>
 <body>
@@ -583,7 +649,7 @@ body.dark .chef-svg{filter:brightness(.78)}
   <a href="#hikayemiz">Hikayemiz</a>
   <a href="https://www.instagram.com/papatya_cakery?psln=MjdrdGszNmZsbXZi" target="_blank" rel="noopener">Instagram</a>
   <a href="https://www.google.com/maps/dir/?api=1&destination=Esentepe+Mah.+180.+sk.+No:+5%2F13+Karacabey+BURSA" target="_blank" rel="noopener">Google Haritalar</a>
-  <a href="#iletisim">İletişim</a>
+  <a href="tel:+905418160792">İletişim</a>
   <figure class="chef-wrap" aria-hidden="true">
   <svg class="chef-svg" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -667,7 +733,21 @@ body.dark .chef-svg{filter:brightness(.78)}
   <section class="stage" id="vitrin">
     <div class="sticky" id="stickyDiv">
       <canvas id="cabinet-canvas"></canvas>
-
+      <div class="spin-badge" id="spinBadge" aria-hidden="true">
+        <svg class="spin-ring" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><path id="badgeCircle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <text font-family="Montserrat,Arial,sans-serif" font-size="10.5" font-weight="500" letter-spacing="2" fill="currentColor">
+            <textPath href="#badgeCircle" textLength="284" lengthAdjust="spacing">• 100% EL YAPIMI • TAPTAZE LEZZETLER •</textPath>
+          </text>
+        </svg>
+        <svg class="spin-center" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#fff" stroke="#B5174A" stroke-width=".8">
+            <circle cx="12" cy="6.2" r="3"/><circle cx="16.8" cy="9.6" r="3"/><circle cx="15" cy="15.3" r="3"/><circle cx="9" cy="15.3" r="3"/><circle cx="7.2" cy="9.6" r="3"/>
+          </g>
+          <circle cx="12" cy="11.5" r="1.7" fill="#B5174A"/>
+        </svg>
+      </div>
+      
       <div class="intro" id="intro">
         <h1>Papatya Cakery</h1>
         <p>Vitrini keşfetmek için aşağı kaydırın</p>
@@ -845,6 +925,7 @@ body.dark .chef-svg{filter:brightness(.78)}
       <a href="https://www.instagram.com/papatya_cakery?psln=MjdrdGszNmZsbXZi" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/905418160792" target="_blank" rel="noopener">WhatsApp</a>
     </div>
+    <p class="footer-mail"><a href="mailto:papatyacakery@gmail.com">papatyacakery@gmail.com</a></p>
     <p class="footer-copy">© 2026 Papatya Cakery Tüm Hakları Saklıdır.</p>
   </footer>
 
@@ -1240,6 +1321,8 @@ function onScroll(){
   if(window._lastP===undefined) window._lastP=p;
   if(p!==window._lastP){ window._scrollingUp = p<window._lastP; window._lastP=p; }
   if(canvasEl) canvasEl.style.opacity = String((p>=0.9 && window._scrollingUp) ? 1 : 1 - smoothstep(.75,.90,p));
+  const badgeEl=document.getElementById('spinBadge');
+  if(badgeEl) badgeEl.style.opacity = String((p>=0.9 && window._scrollingUp) ? 1 : 1 - smoothstep(.70,.85,p));
 
   /* Vitrin bitince araya kart girmeden doğrudan menüye kaydır */
   if(p>=0.92 && !window._menuNav){
@@ -1496,6 +1579,68 @@ function showDistance(){
   steps.forEach(function(el){ io.observe(el); });
 })();
 </script>
+<!-- ── ÖZEL İMLEÇ ── -->
+<div class="cur" id="cur" aria-hidden="true"><span>İncele</span></div>
+
+<!-- ── CANLI FIRIN DURUMU ── -->
+<div class="live-bar" id="liveBar" aria-live="polite">
+  <span class="live-dot"></span>
+  <span class="live-text">Şu an fırından yeni çıktı: <b id="liveName">—</b></span>
+</div>
+
+<script>
+/* Özel imleç ve manyetik butonlar (sadece fare ile kullanımda) */
+(function(){
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  document.documentElement.classList.add('has-cursor');
+  const cur=document.getElementById('cur');
+  let mx=window.innerWidth/2, my=window.innerHeight/2, x=mx, y=my;
+  const mags=Array.from(document.querySelectorAll('.wa-btn,.tum-menu-btn,.visit-btn,.btn-accept,.btn-modal-save'));
+  mags.forEach(el=>el.classList.add('mag'));
+  window.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cur.classList.add('vis'); },{passive:true});
+  document.addEventListener('mouseover',e=>{
+    const t=e.target.closest('.m-card,.card');
+    cur.classList.toggle('big', !!t);
+  });
+  function loop(){
+    x+=(mx-x)*.22; y+=(my-y)*.22;
+    cur.style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%)';
+    mags.forEach(el=>{
+      const r=el.getBoundingClientRect();
+      const cx=r.left+r.width/2, cy=r.top+r.height/2;
+      const dx=mx-cx, dy=my-cy;
+      if(Math.abs(dx)<r.width/2+40 && Math.abs(dy)<r.height/2+30){
+        el.style.transform='translate('+(dx*.25)+'px,'+(dy*.25)+'px)';
+      } else {
+        el.style.transform='';
+      }
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* Canlı fırın: menüden rastgele ürün, dokuz saniyede bir değişir */
+(function(){
+  const bar=document.getElementById('liveBar');
+  const out=document.getElementById('liveName');
+  if(!bar||!out) return;
+  const names=(typeof menuProducts!=='undefined' && menuProducts.length) ? menuProducts.map(p=>p.name) : ['Limonlu Tart'];
+  let last=-1;
+  function pick(){
+    let n;
+    do{ n=Math.floor(Math.random()*names.length); }while(names.length>1 && n===last);
+    last=n; return names[n];
+  }
+  out.textContent=pick();
+  setTimeout(()=>bar.classList.add('show'),1200);
+  setInterval(()=>{
+    bar.classList.remove('show');
+    setTimeout(()=>{ out.textContent=pick(); bar.classList.add('show'); },500);
+  },9000);
+})();
+</script>
+
 <!-- SCROLL TO TOP -->
 <button id="scrollTop" aria-label="Yukarı çık" onclick="window.scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg></button>
 
