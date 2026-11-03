@@ -535,6 +535,15 @@ body.dark .chef-svg{color:#F4EAE0}
   .chef-flower{opacity:1;transform:none}
   .chef-dollop{opacity:1;transform:none}
 }
+
+/* ── Menü: dikey kaydırılabilir ── */
+.menu-panel{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+.menu-panel > *{flex-shrink:0}
+/* ── Şef: daha küçük ── */
+.chef-wrap{width:92px;margin:14px auto 8px}
+/* ── Gece modunda parlama ve beyazlık yumuşatıldı ── */
+body.dark .chef-glow{animation:none;opacity:.2}
+body.dark .chef-svg{filter:brightness(.78)}
 </style>
 </head>
 <body>
